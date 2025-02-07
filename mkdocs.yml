@@ -1,14 +1,17 @@
 site_name: 数据分析笔记
+site_author: Harrison
 theme:
-  name: readthedocs
-nav:
+  name: material
+  language: zh
+nav: 
   - numpy: 
-    - 1.+数组的概念及创建+101c0975-b67c-4216-8719-591a35b324bb: 1.+数组的概念及创建+101c0975-b67c-4216-8719-591a35b324bb.md
-    - 2.+数组的操作+b1e5aded-809e-4f5e-8eeb-bf5278c70410: 2.+数组的操作+b1e5aded-809e-4f5e-8eeb-bf5278c70410.md
+    - 1.+数组的概念及创建+101c0975-b67c-4216-8719-591a35b324bb: numpy/1.+数组的概念及创建+101c0975-b67c-4216-8719-591a35b324bb.md
+    - 2.+数组的操作+b1e5aded-809e-4f5e-8eeb-bf5278c70410: numpy/2.+数组的操作+b1e5aded-809e-4f5e-8eeb-bf5278c70410.md
   - pandas:
   - scipy:
   - matplotlib:
   - seaborn:
   - 单细胞: 
-    - 01.+AnData数据结构+f42be259-849d-43ee-bd34-e610de1f0ede: 01.+AnData数据结构+f42be259-849d-43ee-bd34-e610de1f0ede.md
+    - 01.+AnData数据结构+f42be259-849d-43ee-bd34-e610de1f0ede: 单细胞/01.+AnData数据结构+f42be259-849d-43ee-bd34-e610de1f0ede.md
   - 机器学习:
+  
