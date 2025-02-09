@@ -1,0 +1,1721 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Harrison">
+      
+      
+        <link rel="canonical" href="https://biomed-notebook.cn/numpy/1.%2B%E6%95%B0%E7%BB%84%E7%9A%84%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%9B%E5%BB%BA%2B101c0975-b67c-4216-8719-591a35b324bb/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../2.%2B%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C%2Bb1e5aded-809e-4f5e-8eeb-bf5278c70410/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.3">
+    
+    
+      
+        <title>1.+数组的概念及创建 - 数据分析笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="数据分析笔记" class="md-header__button md-logo" aria-label="数据分析笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            数据分析笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.+数组的概念及创建
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="数据分析笔记" class="md-nav__button md-logo" aria-label="数据分析笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    数据分析笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    numpy
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            numpy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1.+数组的概念及创建
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1.+数组的概念及创建
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      图解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组（ndarray）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      轴（axis）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      广播机制（broadcast）
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%2B%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C%2Bb1e5aded-809e-4f5e-8eeb-bf5278c70410/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.+数组的操作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pandas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scipy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    matplotlib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    seaborn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    单细胞
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            单细胞
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8D%95%E7%BB%86%E8%83%9E/01.%2BAnData%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%2Bf42be259-849d-43ee-bd34-e610de1f0ede/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01.AnData数据结构
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      图解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组（ndarray）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      轴（axis）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      广播机制（broadcast）
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">基本概念</h1>
+<h2 id="_2">图解</h2>
+<p><img alt="image.png" src="image.png" /></p>
+<p><img alt="image.png" src="image%201.png" /></p>
+<p><img alt="image.png" src="image%202.png" /></p>
+<p><img alt="image.png" src="image%203.png" /></p>
+<h2 id="ndarray">数组（ndarray）</h2>
+<ol>
+<li>
+<p><strong>一维数组【列表】</strong></p>
+<p>类似列表，但数组切片针对原始数据</p>
+</li>
+<li>
+<p><strong>二维数组（矩阵）【关于一维数组的列表】</strong></p>
+<p>以数组为元素的数组，包括行和列，类似表格</p>
+</li>
+<li>
+<p><strong>三维数组（矩阵列表）【关于二维数组的列表】</strong>
+最常见的多维数组。指维数为3的数组结构，可用来描述三维空间中的位置或状态</p>
+</li>
+<li>
+<p><strong>结构化数组</strong>
+用于处理异质数据的重要工具，通过定义复杂的数据类型，可以创建具有不同字段的数组，类似于表格或数据库中的行。结构化数组提供了访问、修改、排序和条件筛选数据的灵活性，同时也方便与 Pandas DataFrame 进行交互</p>
+</li>
+</ol>
+<h2 id="axis">轴（axis）</h2>
+<p>指定数组的某个轴可以沿该轴做相关操作（具体如上图）
+对于一维数组，由于无法从上至下操作，因此其只有水平轴，即其轴0为水平轴（具体如上图）</p>
+<h2 id="broadcast">广播机制（broadcast）</h2>
+<p><img alt="mmexport1707449616811.png" src="mmexport1707449616811.png" /></p>
+<p><img alt="mmexport1707449619669.png" src="mmexport1707449619669.png" /></p>
+<h1 id="_3">基础创建</h1>
+<h2 id="array">array函数</h2>
+<p><code>array（object, dtype=None, copy=True, ndmin=0, order="K", subok=False, like=None）</code></p>
+<ol>
+<li>
+<p><strong>object</strong>: 任何具有数组接口方法的对象（数组、列表、元组等，主要是列表和数组）</p>
+</li>
+<li>
+<p><strong>dtype</strong>: 数据类型。可以通过设置不同字段和数据类型以创建结构化数组</p>
+<p>dtype</p>
+<pre><code>bool_(bool8、"?")【8位布尔类型】
+
+number
+
+    integer
+
+        signedinteger【有符号整数】
+
+            int64（intp、int0、longlong、"l"）【64位（-9223372036854775808~9223372036854775807）】
+
+            int32(int_、intc、"i")【32位】
+
+            int16(short、"h")【16位（-32768~32767）】
+
+            int8(byte、"b")【8位（-128~127）】
+
+            timedelta64【两个时间之间的间隔】
+
+        unsignedinteger【无符号整数】
+
+            uint64(uintp、uint0、ulonglong)【64位（0~18446744073709551615）】
+
+            uint32(uint、uintc)【32位（0~4294967295）】
+
+            uint16(ushort)【16位（0~65535）】
+
+            uint8(ubyte)【8位（0~255）】
+
+    inexact
+
+        complexfloating
+
+            longcomplex(clongfloat、clongdouble)【两个128位浮点数】
+
+            complex_(complex128、cfloat、cdouble)【两个64位浮点数】
+
+            singlecomplex(csingle、complex64)【两个32位浮点数】
+
+        floating
+
+            longfloat(longdouble、"g")【128位浮点数】
+
+            float64(float_、double、"d")【双精度浮点：1个符号位，11位指数，52位尾数】
+
+            float32(single、"f")【单精度浮点：1个符号位，8位指数，23位尾数】
+
+            float16(half)【半精度浮点：1个符号位，5位指数，10位尾数】
+
+flexible
+
+    character
+
+        string_(bytes_、bytes0)
+
+        unicode_(str_、str0)
+
+    void0(void)
+
+datetime64【日期时间类型】
+
+object_(object0、"O")【任何python对象】
+</code></pre>
+</li>
+<li>
+<p><strong>copy</strong>: 是否复制原数组。默认为True</p>
+</li>
+<li>
+<p><strong>ndmin</strong>: 指定最小维度</p>
+</li>
+<li>
+<p>subok: 是否从子类创建数组。默认为False，即强制创建基类数组</p>
+</li>
+<li>
+<p>order: 元素在内存中的存储顺序，值为"K"、"A"、"C"、"F"
+若object参数为非数组，其值可为"K"、"C"、"F"
+若object参数为数组，其值均可取
+"K": 元素在内存中出现的顺序
+"A": 原顺序
+"C": 按行
+"F": 按列</p>
+</li>
+<li>
+<p>like: 默认为None</p>
+</li>
+</ol>
+<pre><code class="language-Python"># 简单创建
+n0 = np.array([1, 2, 3, 4])       # 一维数组
+&quot;&quot;&quot;
+[1 2 3 4]
+&quot;&quot;&quot;
+
+n1 = np.array([[1, 2], [3, 4]])   # 二维数组
+&quot;&quot;&quot;
+[[1 2]
+ [3 4]]
+ &quot;&quot;&quot;
+
+n2 = np.array([[[1, 2, 3, 4], [5, 6, 7, 8]], [[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;], [&quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;]]])    # 三维数组
+&quot;&quot;&quot;
+[[['1' '2' '3' '4']
+  ['5' '6' '7' '8']]
+
+ [['a' 'b' 'c' 'd']
+  ['e' 'f' 'g' 'h']]]
+&quot;&quot;&quot;
+
+
+
+# 设置dtype
+n3 = np.array([1, 2, 3, 4], dtype=np.float_)
+print(n3, n3.dtype, type(n3[0]))
+&quot;&quot;&quot;
+[1. 2. 3. 4.] float64 &lt;class 'numpy.float64'&gt;
+&quot;&quot;&quot;
+
+n4 = np.array([1, 2, 3, 4], dtype=np.intp)
+print(n4, n4.dtype, type(n4[0]))
+&quot;&quot;&quot;
+[1 2 3 4] int64 &lt;class 'numpy.int64'&gt;
+&quot;&quot;&quot;
+
+n5 = np.array([1, 2, 3, 4], dtype=np.complex_)
+print(n5, n5.dtype, type(n5[0]))
+&quot;&quot;&quot;
+[1.+0.j 2.+0.j 3.+0.j 4.+0.j] complex128 &lt;class 'numpy.complex128'&gt;
+&quot;&quot;&quot;
+
+
+
+# 设置copy
+n0 = np.array([1, 2, 3, 4])
+n6 = np.array(n0, copy=True)    # 复制原数组，与原数组独立
+n6[0] = 0
+n0[1] = 20
+print(n6, n0)
+&quot;&quot;&quot;
+[0 2 3 4] [ 1 20  3  4]
+&quot;&quot;&quot;
+
+n0 = np.array([1, 2, 3, 4])
+n7 = np.array(n0, copy=False)   # 不复制原数组，与原数组关联
+n7[0] = 0
+n0[1] = 20
+print(n7, n0)
+&quot;&quot;&quot;
+[ 0 20  3  4] [ 0 20  3  4]
+&quot;&quot;&quot;
+
+
+
+# 设置ndmin
+n8 = np.array([[1, 2], [3, 4]], ndmin=2)    # 二维
+&quot;&quot;&quot;
+[[1 2]
+ [3 4]]
+&quot;&quot;&quot;
+
+n9 = np.array([[1, 2], [3, 4]], ndmin=3)    # 三维
+&quot;&quot;&quot;
+[[[1 2]
+  [3 4]]]
+&quot;&quot;&quot;
+
+# 结构化数组的创建
+dtype = np.dtype([('name', 'S10'), ('age', int), ('height', float)])
+data = np.array([('Alice', 25, 5.6), ('Bob', 30, 6.0)], dtype=dtype)
+&quot;&quot;&quot;
+[(b'Alice', 25, 5.6) (b'Bob', 30, 6. )]
+&quot;&quot;&quot;
+
+dtype_nested = np.dtype([('info', [('name', 'S10'), ('age', int)]), ('height', float)])
+data_nested = np.array([(('Alice', 25), 5.6), (('Bob', 30), 6.0)], dtype=dtype_nested)
+&quot;&quot;&quot;
+[((b'Alice', 25), 5.6) ((b'Bob', 30), 6. )]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="_4">填充创建</h1>
+<h2 id="empty">empty函数</h2>
+<p>创建指定形状，未初始化的数组，元素为随机值</p>
+<p><code>empty(shape, dtype=numpy.float64, order="C", like=None)</code></p>
+<ol>
+<li>
+<p><strong>shape</strong>: 创建的数组的形状。可以是整数或整数序列</p>
+</li>
+<li>
+<p>dtype: 同上。默认为numpy.float64</p>
+</li>
+<li>
+<p>order: 同上。"C"和"F"可选，默认"C"</p>
+</li>
+<li>
+<p>like: 默认为None</p>
+</li>
+</ol>
+<pre><code class="language-Python">n10 = np.empty(5)
+&quot;&quot;&quot;
+[0.   0.25 0.5  0.75 1.  ]
+&quot;&quot;&quot;
+
+n11 = np.empty([4, 3])
+&quot;&quot;&quot;
+[[0. 0. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]
+ [0. 0. 1.]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="zeros">zeros函数</h2>
+<p>创建指定形状，以0填充的数组</p>
+<p><code>zeros(shape, dtype=numpy.float64, order="C", like=None)</code></p>
+<ol>
+<li>
+<p><strong>shape</strong>: 同上</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>like: 默认为None</p>
+</li>
+</ol>
+<pre><code class="language-Python">n12 = np.zeros(5)
+&quot;&quot;&quot;
+[0. 0. 0. 0. 0.]
+&quot;&quot;&quot;
+
+n13 = np.zeros([4, 3])
+&quot;&quot;&quot;
+[[0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="ones">ones函数</h2>
+<p>创建指定形状，以1填充的数组</p>
+<p><code>ones(shape, dtype=numpy.float64, order="C", like=None)</code></p>
+<ol>
+<li>
+<p><strong>shape</strong>: 同上</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>like: 默认为None</p>
+</li>
+</ol>
+<pre><code class="language-Python">n14 = np.ones(5)
+&quot;&quot;&quot;
+[1. 1. 1. 1. 1.]
+&quot;&quot;&quot;
+
+n15 = np.ones([4, 3])
+&quot;&quot;&quot;
+[[1. 1. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="full">full函数</h2>
+<p>创建指定形状，以fill_value填充的数组</p>
+<p><code>full(shape, fill_value, dtype=None, order="C", like=None)</code></p>
+<ol>
+<li>
+<p><strong>shape</strong>: 同上</p>
+</li>
+<li>
+<p><strong>fill_value</strong>: 指定填充值。可以是单一数值或数组等</p>
+</li>
+<li>
+<p>dtype: 同上。默认为None，即与填充值类型一致</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>like: 默认为None</p>
+</li>
+</ol>
+<pre><code class="language-Python">n16 = np.full(5, fill_value=8)
+&quot;&quot;&quot;
+[8 8 8 8 8]
+&quot;&quot;&quot;
+
+n17 = np.full([4, 3], fill_value=8)
+&quot;&quot;&quot;
+[[8 8 8]
+ [8 8 8]
+ [8 8 8]
+ [8 8 8]]
+&quot;&quot;&quot;
+
+n18 = np.full([6, 4], fill_value=[1, 2, 3, 4])
+&quot;&quot;&quot;
+[[1 2 3 4]
+ [1 2 3 4]
+ [1 2 3 4]
+ [1 2 3 4]
+ [1 2 3 4]
+ [1 2 3 4]]
+&quot;&quot;&quot;
+
+n18 = np.full([6, 4], fill_value=[[1], [2], [3], [4], [5], [6]])
+&quot;&quot;&quot;
+[[1 1 1 1]
+ [2 2 2 2]
+ [3 3 3 3]
+ [4 4 4 4]
+ [5 5 5 5]
+ [6 6 6 6]]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="_5">范围创建</h1>
+<h2 id="arange">arange函数</h2>
+<p>类似于range函数，范围为<strong>[start，stop)</strong>，区别是该函数返回数组以及该函数参数可以为任意实数。建议该函数参数仅使用整数类型</p>
+<p><code>arange(start=0, stop, step=1, dtype=None, like=None)</code></p>
+<ol>
+<li>
+<p><strong>start</strong>: 起始值。可以是整数或实数。默认为0</p>
+</li>
+<li>
+<p><strong>stop</strong>: 终止值。可以是整数或实数</p>
+</li>
+<li>
+<p><strong>step</strong>: 步长或间隔。可以是整数或实数。默认为1</p>
+</li>
+<li>
+<p>dtype: 同上。默认为None，自动判断数据类型</p>
+</li>
+<li>
+<p>like: 默认为None</p>
+</li>
+</ol>
+<pre><code class="language-Python">n19 = np.arange(10)
+&quot;&quot;&quot;
+[0 1 2 3 4 5 6 7 8 9]
+&quot;&quot;&quot;
+
+n20 = np.arange(1, 10)
+&quot;&quot;&quot;
+[1 2 3 4 5 6 7 8 9]
+&quot;&quot;&quot;
+
+n21 = np.arange(1, 10, 2)
+&quot;&quot;&quot;
+[1 3 5 7 9]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="linspace">linspace函数</h2>
+<p>用于创建<strong>等差数列</strong>数组（在start和stop之间产生num个均匀等差数）</p>
+<p><strong>当包含stop（默认）时，步长为（stop-start）/（num-1）；当不包含stop时，步长为（stop-start）/num</strong></p>
+<p><code>linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0)</code></p>
+<ol>
+<li>
+<p><strong>start</strong>: 起始值。可以是任一实数或列表、数组等</p>
+</li>
+<li>
+<p><strong>stop</strong>: 终止值。可以是任一实数或列表、数组等</p>
+</li>
+<li>
+<p><strong>num</strong>: 产生样本的数量。默认为50</p>
+</li>
+<li>
+<p><strong>endpoint</strong>: 是否包含stop参数值。默认为True</p>
+</li>
+<li>
+<p><strong>retstep</strong>: 是否以元组的形式返回显示步长（等差）。默认为False</p>
+</li>
+<li>
+<p><strong>axis</strong>: 仅当start或stop为列表或数组等类型时有效。表示沿着该轴为等差数列。默认为0</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python"># 简单创建
+n22 = np.linspace(1, 10, 5)
+&quot;&quot;&quot;
+[ 1.    3.25  5.5   7.75 10.  ]
+&quot;&quot;&quot;
+
+n23 = np.linspace(1, [11, 12, 13, 14], 5)
+&quot;&quot;&quot;
+[[ 1.    1.    1.    1.  ]
+ [ 3.5   3.75  4.    4.25]
+ [ 6.    6.5   7.    7.5 ]
+ [ 8.5   9.25 10.   10.75]
+ [11.   12.   13.   14.  ]]
+&quot;&quot;&quot;
+
+n24 = np.linspace([1, 2, 3, 4], 11, 5)
+&quot;&quot;&quot;
+[[ 1.    2.    3.    4.  ]
+ [ 3.5   4.25  5.    5.75]
+ [ 6.    6.5   7.    7.5 ]
+ [ 8.5   8.75  9.    9.25]
+ [11.   11.   11.   11.  ]]
+&quot;&quot;&quot;
+
+n25 = np.linspace([1, 2, 3, 4], [11, 12, 13, 14], 5)
+&quot;&quot;&quot;
+[[ 1.   2.   3.   4. ]
+ [ 3.5  4.5  5.5  6.5]
+ [ 6.   7.   8.   9. ]
+ [ 8.5  9.5 10.5 11.5]
+ [11.  12.  13.  14. ]]
+&quot;&quot;&quot;
+
+
+
+# 设置endpoint
+n26 = np.linspace(1, 10, 5, endpoint=False)
+&quot;&quot;&quot;
+[1.  2.8 4.6 6.4 8.2]
+&quot;&quot;&quot;
+
+
+
+# 设置retstep
+n27 = np.linspace(1, 10, 5, retstep=True)
+&quot;&quot;&quot;
+(array([ 1.  ,  3.25,  5.5 ,  7.75, 10.  ]), 2.25)
+&quot;&quot;&quot;
+
+
+
+# 设置axis
+n28 = np.linspace([1, 2, 3, 4], [11, 12, 13, 14], 6, axis=0)
+&quot;&quot;&quot;
+[[ 1.  2.  3.  4.]
+ [ 3.  4.  5.  6.]
+ [ 5.  6.  7.  8.]
+ [ 7.  8.  9. 10.]
+ [ 9. 10. 11. 12.]
+ [11. 12. 13. 14.]]
+&quot;&quot;&quot;
+
+n29 = np.linspace([1, 2, 3, 4], [11, 12, 13, 14], 6, axis=1)
+&quot;&quot;&quot;
+[[ 1.  3.  5.  7.  9. 11.]
+ [ 2.  4.  6.  8. 10. 12.]
+ [ 3.  5.  7.  9. 11. 13.]
+ [ 4.  6.  8. 10. 12. 14.]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="logspace">logspace函数</h2>
+<p>用于创建<strong>等比数列</strong>（在base<strong>start和base</strong>stop之间产生num个均匀等比数）</p>
+<p>等比数列在对数上为等差数列，所以换种思路可理解为：<strong>在start和stop之间生成num个均匀等差数列（同linspace函数），再将每个数以base为底作指数运算</strong></p>
+<p><code>logspace(start, stop, num=50, endpoint=True, base=10.0, dtype=None, axis=0)</code></p>
+<ol>
+<li>
+<p><strong>start</strong>: 同上。但初始值为base**start</p>
+</li>
+<li>
+<p><strong>stop</strong>: 同上。但终止值为base**stop</p>
+</li>
+<li>
+<p><strong>num</strong>: 同上</p>
+</li>
+<li>
+<p><strong>endpoint</strong>: 同上</p>
+</li>
+<li>
+<p><strong>base</strong>: 底数，可以为任一实数或列表、数组等。默认为10.0</p>
+</li>
+<li>
+<p><strong>axis</strong>: 仅当start、stop或base为列表或数组等类型时有效。表示沿着该轴为等比数列。默认为0</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n30 = np.logspace(1, 10, 10, base=2)
+&quot;&quot;&quot;
+[   2.    4.    8.   16.   32.   64.  128.  256.  512. 1024.]
+&quot;&quot;&quot;
+
+n31 = np.logspace(1, 4, 5, base=[2, 3, 4, 5])
+&quot;&quot;&quot;
+[[  2.           3.           4.           5.        ]
+ [  3.36358566   6.83852117  11.3137085   16.71850762]
+ [  5.65685425  15.58845727  32.          55.90169944]
+ [  9.51365692  35.53399835  90.50966799 186.91859765]
+ [ 16.          81.         256.         625.        ]]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="_6">随机创建</h1>
+<h2 id="randomrand">random.rand函数</h2>
+<p>创建一个给定形状的数组，并用<strong>[0，1)</strong>上均匀分布的随机样本填充。若未给定参数，将仅返回一个随机数</p>
+<p><code>rand(d0, d1, ..., dn)</code></p>
+<pre><code class="language-Python">n32 = np.random.rand()
+&quot;&quot;&quot;
+0.9470660042118693
+&quot;&quot;&quot;
+
+n33 = np.random.rand(3)
+&quot;&quot;&quot;
+[0.88734261 0.88303211 0.76045189]
+&quot;&quot;&quot;
+
+n34 = np.random.rand(3, 4)
+&quot;&quot;&quot;
+[[0.38775125 0.56929663 0.82186919 0.3899654 ]
+ [0.31936881 0.02693    0.75568994 0.286433  ]
+ [0.42836783 0.36534623 0.93650673 0.69723928]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="randomrandn">random.randn函数</h2>
+<p>创建一个给定形状的数组，从“<strong>标准正态”分布（均值为0，标准差为1）</strong>随机返回一个或多个样本
+服从均值为μ，标准差为σ的正态分布，可用：<strong>μ + σ * np.random.randn(...)</strong>    来生成数组</p>
+<p><code>randn(d0, d1, ..., dn)</code></p>
+<pre><code class="language-Python">n35 = np.random.randn()
+&quot;&quot;&quot;
+-0.9634996081712404
+&quot;&quot;&quot;
+
+n36 = np.random.randn(3)
+&quot;&quot;&quot;
+[0.5043878  0.86713589 0.27525007]
+&quot;&quot;&quot;
+
+n37 = np.random.randn(3, 4)
+&quot;&quot;&quot;
+[[-0.1079871  -0.42197777  0.52599791  0.17754496]
+ [ 0.47036527 -0.90796359 -0.22122957 -0.50120022]
+ [-0.47200183  0.59749017  1.08836655  0.67734795]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="randomrandint">random.randint函数</h2>
+<p>创建一个给定形状的数组，用<strong>[low, high）的随机整数</strong>样本填充；若<strong>high未指定，范围为[0, low)的随机整数</strong></p>
+<p><code>randint(low, high=None, size=None, dtype=int)</code></p>
+<ol>
+<li>
+<p><strong>low</strong>: 起始值。可为整数或列表、数组等</p>
+</li>
+<li>
+<p><strong>high</strong>: 终止值。可为整数或列表、数组等</p>
+</li>
+<li>
+<p><strong>size</strong>: 指定数组形状大小。若不指定，则根据参数类型决定返回类型</p>
+</li>
+<li>
+<p>dtype: 同上。默认为int</p>
+</li>
+</ol>
+<pre><code class="language-Python"># high未指定，范围为[0, low)
+n38 = np.random.randint(2, size=10)
+&quot;&quot;&quot;
+[1 0 1 0 0 0 1 1 1 0]
+&quot;&quot;&quot;
+
+
+
+# 指定high，范围为[low, high)
+n39 = np.random.randint(1, 10, size=10)
+&quot;&quot;&quot;
+[7 1 6 7 6 7 5 9 1 6]
+&quot;&quot;&quot;
+
+
+
+# 未指定size，根据参数类型决定size
+n40 = np.random.randint(1, 10)
+&quot;&quot;&quot;
+8
+&quot;&quot;&quot;
+
+n41 = np.random.randint(1, [10, 11, 12, 13])         # 范围分别为[1, 10)、[1, 11)、[1, 12)、[1, 13)
+&quot;&quot;&quot;
+[ 8 10 11  4]
+&quot;&quot;&quot;
+
+n42 = np.random.randint([1, 3, 5, 7], [[10], [20]])
+&quot;&quot;&quot;
+[[1 5 9 8]
+ [2 8 8 7]]
+&quot;&quot;&quot;
+
+
+
+# 指定size
+n43 = np.random.randint(1, 10, size=[3, 4])
+&quot;&quot;&quot;
+[[4 1 7 9]
+ [8 2 1 4]
+ [4 2 4 7]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="randomnormal">random.normal函数</h2>
+<p>创建一个给定形状的数组，从<strong>正态分布（均值为loc，标准差为scale）</strong>随机返回一个或多个样本</p>
+<p><code>normal(loc=0.0, scale=1.0, size=None)</code></p>
+<ol>
+<li>
+<p><strong>loc</strong>: 均值。可为浮点数或列表、数组等<strong>。</strong>默认为0.0</p>
+</li>
+<li>
+<p><strong>scale</strong>: 标准差。可为浮点数或列表、数组等,。默认为1.0</p>
+</li>
+<li>
+<p><strong>size</strong>: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n44 = np.random.normal(loc=2, scale=2)
+&quot;&quot;&quot;
+1.8403874883934772
+&quot;&quot;&quot;
+
+n45 = np.random.normal(loc=2, scale=2, size=[3, 4])
+&quot;&quot;&quot;
+[[ 1.89492021  1.82202719  2.46348908 -1.21728651]
+ [-3.10725159  3.67963494  8.82440607 -1.18438998]
+ [ 4.22737934  1.88183014  1.90411906  0.04398211]]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="_7">其它创建</h1>
+<h2 id="asarray">asarray函数</h2>
+<p>类似array函数，但默认不复制原数据；若设置了dtype，仅当所设置dtype与原数据不匹配时复制原数据</p>
+<p><code>asarray(a, dtype=None, order='K', like=None)</code></p>
+<ol>
+<li>
+<p><strong>a</strong>: 任何能转换为数组的对象</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>like: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n0 = np.array([1, 2, 3, 4])
+n46 = np.asarray(n0)
+n0[0] = 10
+n46[1] = 20
+print(n46, n0)
+&quot;&quot;&quot;
+[10 20  3  4] [10 20  3  4]
+&quot;&quot;&quot;
+
+n0 = np.array([1, 2, 3, 4])
+n47 = np.asarray(n0, dtype=np.float_)
+n0[0] = 10
+n47[1] = 20
+print(n47, n0)
+&quot;&quot;&quot;
+[ 1. 20.  3.  4.] [10  2  3  4]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="frombuffer">frombuffer函数</h2>
+<p><code>frombuffer(buffer, count=-1, offset=0, dtype=None, like=None)</code></p>
+<ol>
+<li>
+<p><strong>buffer</strong>: 具有buffer接口的对象</p>
+</li>
+<li>
+<p><strong>count</strong>: 读取的数量。默认为-1，表示读取全部数据</p>
+</li>
+<li>
+<p><strong>offset</strong>: 偏移量。从此开始读取缓冲区(以字节为单位)。默认为0</p>
+</li>
+<li>
+<p>dtype: 同上。默认为float</p>
+</li>
+<li>
+<p>like: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">s = b'hello world'
+n48 = np.frombuffer(s, count=3, offset=2, dtype=&quot;S1&quot;)
+&quot;&quot;&quot;
+[b'l' b'l' b'o']
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="fromiter">fromiter函数</h2>
+<p>从可迭代对象创建数组</p>
+<p><strong><code>fromiter(iter, dtype, count=-1, like=None)</code></strong></p>
+<ol>
+<li>
+<p><strong>iter</strong>: 可迭代对象，如列表、元组等</p>
+</li>
+<li>
+<p><strong>dtype</strong>: 同上</p>
+</li>
+<li>
+<p><strong>count</strong>: 同上</p>
+</li>
+<li>
+<p>like: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n49 = np.fromiter([i for i in range(0, 10)], dtype=np.float_, count=6)
+&quot;&quot;&quot;
+[0. 1. 2. 3. 4. 5.]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="like">like创建</h1>
+<p>该类创建函数类似于前述填充创建的函数，区别在于该类函数的形状由给定数组决定</p>
+<h2 id="empty_like">empty_like函数</h2>
+<p>创建一个与给定数组的维度和数据类型相同的未初始化的数组</p>
+<p><code>empty_like(prototype, dtype=None, order='K', subok=True, shape=None)</code></p>
+<ol>
+<li>
+<p><strong>prototype</strong>: 给定的数组</p>
+</li>
+<li>
+<p>dtype: 覆盖结果的数据类型。同上</p>
+</li>
+<li>
+<p>order: 覆盖结果的内存排列，默认为"K"。同上</p>
+</li>
+<li>
+<p>subok: 同上。默认为True</p>
+</li>
+<li>
+<p>shape: 覆盖结果的形状。同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n50 = np.empty_like([[1, 2, 3, 4], [5, 6, 7, 8]])
+&quot;&quot;&quot;
+[[         0 1072693248          0 1077149696]
+ [         0 1074266112          0 1074790400]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="zeros_like">zeros_like函数</h2>
+<p>创建一个与给定数组的维度和数据类型相同的以0填充的数组</p>
+<p><code>zeros_like(a, dtype=None, order='K', subok=True, shape=None)</code></p>
+<ol>
+<li>
+<p><strong>a</strong>: 给定的数组</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>subok: 同上</p>
+</li>
+<li>
+<p>shape: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n51 = np.zeros_like([[1, 2, 3, 4], [5, 6, 7, 8]])
+&quot;&quot;&quot;
+[[0 0 0 0]
+ [0 0 0 0]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="ones_like">ones_like函数</h2>
+<p>创建一个与给定数组的维度和数据类型相同的以1填充的数组</p>
+<p><code>ones_like(a, dtype=None, order='K', subok=True, shape=None)</code></p>
+<ol>
+<li>
+<p><strong>a</strong>: 给定的数组</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>subok: 同上</p>
+</li>
+<li>
+<p>shape: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n52 = np.ones_like([[1, 2, 3, 4], [5, 6, 7, 8]])
+&quot;&quot;&quot;
+[[1 1 1 1]
+ [1 1 1 1]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="full_like">full_like函数</h2>
+<p>创建一个与给定数组的维度和数据类型相同的以fill_value填充的数组</p>
+<p><code>full_like(a, fill_value, dtype=None, order='K', subok=True, shape=None)</code></p>
+<ol>
+<li>
+<p><strong>a</strong>: 给定的数组</p>
+</li>
+<li>
+<p><strong>fill_value</strong>: 指定填充值。同上</p>
+</li>
+<li>
+<p>dtype: 同上</p>
+</li>
+<li>
+<p>order: 同上</p>
+</li>
+<li>
+<p>subok: 同上</p>
+</li>
+<li>
+<p>shape: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n53 = np.full_like([[1, 2, 3, 4], [5, 6, 7, 8]], fill_value=10)
+&quot;&quot;&quot;
+[[10 10 10 10]
+ [10 10 10 10]]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="_8">对角创建</h1>
+<p>对于二维及以上数组才有对角线，一般只提二维数组</p>
+<p>对于二维数组，其对角线是指<strong>a[i, i+offset或k]</strong>，offset或k是偏移量，当offset或k=0时，该对角线为主对角线，即<strong>a[i, i]</strong>，该对角线包含的元素包括a[0, 0], a[1, 1], ..., a[i, i]。</p>
+<p>对于多维数组，其主对角线为<strong>a[i, i, ..., i]</strong></p>
+<h2 id="eye">eye函数</h2>
+<p>创建一个<strong>对角线(i, i+k)为1</strong>，其它位置为0的二维数组</p>
+<p><code>eye(N, M=N, k=0, dtype=float, order='C', like=None)</code></p>
+<ol>
+<li>
+<p><strong>N</strong>: 行数</p>
+</li>
+<li>
+<p><strong>M</strong>: 列数。默认与N相等</p>
+</li>
+<li>
+<p><strong>k</strong>: 相对于主对角线的偏移量或者对角线索引。默认为0，即主对角线；+表示上方对角线，-表示下方对角线</p>
+</li>
+<li>
+<p>dtype: 同上。默认为float</p>
+</li>
+<li>
+<p>order: 同上。默认为"C"</p>
+</li>
+<li>
+<p>like: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n54 = np.eye(5)
+&quot;&quot;&quot;
+[[1. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 1.]]
+&quot;&quot;&quot;
+
+n55 = np.eye(5, 7)
+&quot;&quot;&quot;
+[[1. 0. 0. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0. 0. 0.]
+ [0. 0. 1. 0. 0. 0. 0.]
+ [0. 0. 0. 1. 0. 0. 0.]
+ [0. 0. 0. 0. 1. 0. 0.]]
+&quot;&quot;&quot;
+
+n56 = np.eye(5, 7, k=1)
+&quot;&quot;&quot;
+[[0. 1. 0. 0. 0. 0. 0.]
+ [0. 0. 1. 0. 0. 0. 0.]
+ [0. 0. 0. 1. 0. 0. 0.]
+ [0. 0. 0. 0. 1. 0. 0.]
+ [0. 0. 0. 0. 0. 1. 0.]]
+&quot;&quot;&quot;
+
+n57 = np.eye(5, 7, k=-1)
+&quot;&quot;&quot;
+[[0. 0. 0. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0. 0. 0.]
+ [0. 0. 1. 0. 0. 0. 0.]
+ [0. 0. 0. 1. 0. 0. 0.]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="diag">diag函数</h2>
+<p>提取一个二维数组的对角或者创建一个对角二维数组(对角为该一维数组)</p>
+<p><code>diag(v, k=0)</code></p>
+<ol>
+<li>
+<p><strong>v</strong>: 指定数组，只能是一维数组或二维数组</p>
+</li>
+<li>
+<p><strong>k</strong>: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n0 = np.random.randint(1, 10, size=(5, 7))
+&quot;&quot;&quot;
+[[3 2 6 9 2 4 8]
+ [7 4 1 4 7 4 2]
+ [4 3 5 1 6 8 9]
+ [2 6 9 2 2 3 7]
+ [1 5 7 4 3 5 6]]
+&quot;&quot;&quot;
+
+n58 = np.diag(n0)
+&quot;&quot;&quot;
+[3 4 5 2 3]
+&quot;&quot;&quot;
+
+n1 = np.array([1, 2, 3, 4])
+n59 = np.diag(n1)
+&quot;&quot;&quot;
+[[1 0 0 0]
+ [0 2 0 0]
+ [0 0 3 0]
+ [0 0 0 4]]
+&quot;&quot;&quot;
+</code></pre>
+<h2 id="diagflat">diagflat函数</h2>
+<p>将数组转化为一维数组后，创建一个对角二维数组（对角为该转化后的一维数组）</p>
+<p><code>diagflat(v, k=0)</code></p>
+<ol>
+<li>
+<p><strong>v</strong>: 指定数组</p>
+</li>
+<li>
+<p><strong>k</strong>: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n0 = np.array([1, 2, 3, 4])
+n60 = np.diagflat(n0)
+&quot;&quot;&quot;
+[[1 0 0 0]
+ [0 2 0 0]
+ [0 0 3 0]
+ [0 0 0 4]]
+&quot;&quot;&quot;
+
+n1 = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+n61 = np.diagflat(n1)
+&quot;&quot;&quot;
+[[1 0 0 0 0 0 0 0]
+ [0 2 0 0 0 0 0 0]
+ [0 0 3 0 0 0 0 0]
+ [0 0 0 4 0 0 0 0]
+ [0 0 0 0 5 0 0 0]
+ [0 0 0 0 0 6 0 0]
+ [0 0 0 0 0 0 7 0]
+ [0 0 0 0 0 0 0 8]]
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="_9">对角三角创建</h1>
+<h2 id="tri">tri函数</h2>
+<p>创建一个<strong>对角线(i, i+k)及以下部分为1</strong>，其它位置为0的二维数组</p>
+<p><code>tri(N, M=N, k=0, dtype=float, like=None)</code></p>
+<ol>
+<li>
+<p><strong>N</strong>: 行数</p>
+</li>
+<li>
+<p><strong>M</strong>: 列数。默认与N相等</p>
+</li>
+<li>
+<p><strong>k</strong>: 同上</p>
+</li>
+<li>
+<p>dtype: 同上。默认为float</p>
+</li>
+<li>
+<p>like: 同上</p>
+</li>
+</ol>
+<pre><code class="language-Python">n62 = np.tri(5)
+&quot;&quot;&quot;
+[[1. 0. 0. 0. 0.]
+ [1. 1. 0. 0. 0.]
+ [1. 1. 1. 0. 0.]
+ [1. 1. 1. 1. 0.]
+ [1. 1. 1. 1. 1.]]
+&quot;&quot;&quot;
+
+n63 = np.tri(5, 7)
+&quot;&quot;&quot;
+[[1. 0. 0. 0. 0. 0. 0.]
+ [1. 1. 0. 0. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0. 0.]
+ [1. 1. 1. 1. 0. 0. 0.]
+ [1. 1. 1. 1. 1. 0. 0.]]
+&quot;&quot;&quot;
+
+n64 = np.tri(5, 7, k=1)
+&quot;&quot;&quot;
+[[1. 1. 0. 0. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0. 0.]
+ [1. 1. 1. 1. 0. 0. 0.]
+ [1. 1. 1. 1. 1. 0. 0.]
+ [1. 1. 1. 1. 1. 1. 0.]]
+&quot;&quot;&quot;
+
+n65 = np.tri(5, 7, k=-1)
+&quot;&quot;&quot;
+[[0. 0. 0. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0. 0. 0.]
+ [1. 1. 0. 0. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0. 0.]
+ [1. 1. 1. 1. 0. 0. 0.]]
+&quot;&quot;&quot;
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+  </body>
+</html>
